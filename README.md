@@ -11,3 +11,7 @@ Four instance methods exist:
 - ``divide()`` returns two newborn worm instances with parent worm's ``length`` and ``energy`` split roughly in half. Parent worm is then flagged as both dead (``alive = False``) and ``divided``. There are some restrictions for a division to be available: hardcoded ``length`` and ``energy`` (at least 2 each) and configured minimal ``age``.
 
 After any of those methods successfully invoked, a worm with ``energy`` lesser than zero is flagged as dead (``alive = False``). A dead worm cannot use its methods, raising an exception instead. A worm with a positive energy becomes 1 day older, and is ready for another action.
+
+## To do
+- Get rid of the last hardcoded variables in main module
+- Implement error-specific exception subclasses
