@@ -1,6 +1,7 @@
 from math import ceil, floor
 
 import config
+from error import BadNewWorm, NotEnoughFood, MaxLengthReached, CannotDivide, DividedWorm, DeadWorm
 
 
 class Worm:
@@ -11,7 +12,7 @@ class Worm:
 
     def __init__(self, length=config.length, energy=config.energy):
         if length <= 0 or energy <= 0:
-            raise Exception("New worm's length or energy cannot be lesser than 1.")
+            raise BadNewWorm(length=length, energy=energy)
         self.alive = True
         self.divided = False
         self.age = 0
@@ -28,7 +29,7 @@ class Worm:
     @checks
     def eat(self, units=1):
         if type(self).food < units:
-            raise Exception("Not enough food available.")
+            raise NotEnoughFood(food=type(self).food, eat=units)
         type(self).food -= units
         self.energy += units * config.energy_per_food
 
@@ -43,7 +44,7 @@ class Worm:
         if self.length < config.max_length:
             self.length += config.length_per_energy
         else:
-            raise Exception("Maximal length reached.")
+            raise MaxLengthReached(length=self.length)
 
     def divide(self):
         self._is_alive()
@@ -56,14 +57,14 @@ class Worm:
             new_energies = (ceil(half_energy), floor(half_energy))
             return [type(self)(length, energy) for length, energy in zip(new_lengths, new_energies)]
         else:
-            raise Exception("Worm is unable to divide.")
+            raise CannotDivide(length=self.length, energy=self.energy, age=self.age)
 
     def _is_alive(self):
         if not self.alive:
             if self.divided:
-                raise Exception("This worm had divided.")
+                raise DividedWorm()
             else:
-                raise Exception("This worm is dead.")
+                raise DeadWorm()
 
     def _get_older(self):
         self.age += 1
