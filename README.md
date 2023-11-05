@@ -13,5 +13,8 @@ Four instance methods exist:
 After any of those methods successfully invoked, a worm with ``energy`` lesser than zero is flagged as dead (``alive = False``). A dead worm cannot use its methods, raising an exception instead. A worm with a positive energy becomes 1 day older, and is ready for another action.
 
 ## To do
-- Get rid of the last hardcoded variables in main module
-- Implement error-specific exception subclasses
+
+- [x] Implement error-specific exception subclasses
+- [ ] Get rid of the last hardcoded variables in main module
+- [ ] Document custom exceptions
+- [ ] Fix faulty logic in some methods (notably ``grow()``)
